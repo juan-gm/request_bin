@@ -1,6 +1,9 @@
 const config = require('./utils/config')
 const express = require('express')
 const app = express()
+const handlebars = require('express-handlebars')
+
+
 
 // TODO
 // Do we need cors??
@@ -23,6 +26,13 @@ const todoRouter = require('./controllers/TODO')
 
 app.use(express.static('build'))
 app.use(express.json())
+
+app.set('view engine', 'hbs')
+
+app.engine('hbs', handlebars({
+  layoutsDir: __dirname + '/views/layouts',
+  extname: 'hbs'
+  }));
 
 // TODO
 // Change the name of this variable
