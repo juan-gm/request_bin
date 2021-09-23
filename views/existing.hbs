@@ -7,3 +7,8 @@ This page should show all the requests. For that we should implement
 partials. Each partial will render one of the requests. The partials should be displayed
 one after another. The 
 </p>
+
+{{#each listOfRequests}}
+    <hr>
+    {{> requestPartial request=this}}
+{{/each}}

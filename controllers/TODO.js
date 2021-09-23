@@ -40,7 +40,7 @@ exampleRouter.get('/r/:url', (req, res) => {
     shows all the requests
   */
   if (requestsExist(req.url)) {
-    res.render('existing', {layout : 'index', binURL: getBin(req.url)})
+    res.render('existing', {layout : 'index', binURL: getBin(req.url), listOfRequests: getListOfRequests(req.url)})
   } else {
     res.render('empty', {layout : 'index', binURL: getBin(req.url)})
   }
@@ -49,9 +49,25 @@ exampleRouter.get('/r/:url', (req, res) => {
 // TODO
 // Try to find in the database if requests already exist.
 requestsExist = (url) => {
-  return false
+  return true
 }
 
 getBin = (url) => 'https://requestbin.net' + url
+
+//TODO
+// Get a list of all the requests associated witha URL from the database
+getListOfRequests = (url) => {
+  // data: URL, HTTP method, time, post parameters??, header
+
+  let json1 = {
+    "url": url,
+    "method": 'get',
+    "time": '8h ago',
+    "post parameters": "i don't know yet",
+    "header": "no idea also"
+  }
+
+  return [json1, json1]
+}
 
 module.exports = exampleRouter
