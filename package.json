@@ -12,6 +12,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-handlebars": "^5.3.3",
-    "pg": "^8.7.1"
+    "pg": "^8.7.1",
+    "pg-sync": "^0.2.0",
+    "ramda": "^0.27.1"
   }
 }

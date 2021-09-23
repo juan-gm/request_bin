@@ -13,7 +13,7 @@ const handlebars = require('express-handlebars')
 // Change the name of this todoRouter and file
 //This is the controller that handles the routes
 // For now it is TODO.js file.
-const todoRouter = require('./controllers/TODO')
+const router = require('./controllers/router')
 
 
 // TODO
@@ -36,6 +36,6 @@ app.engine('hbs', handlebars({
 
 // TODO
 // Change the name of this variable
-app.use(todoRouter)
+app.use(router)
 
 module.exports = app
