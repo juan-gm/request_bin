@@ -2,6 +2,7 @@ const pg = require("pg");
 const uri = 'postgres://reader:12345@localhost:5432/request_bin'
 
 async function queryBin(path) {
+  // Return true if the bin exists
   const client = new pg.Client(uri);
   client.connect();
 
@@ -14,10 +15,29 @@ async function queryBin(path) {
   return valueExists
 };
 
-/*
-Tasks:
-- Query for the bin and pass callbacks if it exists and doesn't exist
-*/
+async function queryBinId(path) {
+  // Return the bin id of the bin with the argument's path
+
+  const client = new pg.Client(uri);
+  client.connect();
+
+  let binId;
+
+  await client.query(`SELECT * FROM bin WHERE path='${path}'`).then((queryRes) => {
+    binId = queryRes.rows[0].id
+  }).finally(() => client.end());
+
+  return binId
+};
+
+async function insertParsedRequest(requestData) {
+  // Insert a new request to the parsed request entity
+
+  const client = new pg.Client(uri);
+  client.connect();
+
+  await client.query(`INSERT INTO parsed_request VALUES (DEFAULT, ${requestData.binId}, '${requestData.rawBody}', '${requestData.rawHeaders}', '${requestData.query}', '${requestData.path}', DEFAULT, '${requestData.method}')`).finally(() => client.end());
+}
 
 async function createBin(path) {
   const client = new pg.Client(uri);
@@ -39,7 +59,7 @@ getBin = (path) => 'https://requestbin.net' + path
 
 queryBin('1ozm1furggsjfwrf41xk8xb8hjt3ll!')
 
-module.exports = { createBin, queryBin, generateRandomAlphanumericLength30 }
+module.exports = { createBin, queryBin, queryBinId, generateRandomAlphanumericLength30, insertParsedRequest }
 
 /*
 
