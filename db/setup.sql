@@ -1,10 +1,10 @@
-DROP TABLE IF EXISTS bin;
-DROP TABLE IF EXISTS raw_request;
-DROP TABLE IF EXISTS parsed_request;
+DROP TABLE IF EXISTS bin CASCADE;
+DROP TABLE IF EXISTS raw_request CASCADE;
+DROP TABLE IF EXISTS parsed_request CASCADE;
 
 CREATE TABLE bin (
   id serial UNIQUE NOT NULL PRIMARY KEY,
-  url char(30) UNIQUE NOT NULL,
+  path char(30) UNIQUE NOT NULL,
   last_used date
 );
 

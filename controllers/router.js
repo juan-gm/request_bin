@@ -13,14 +13,21 @@ router.get('/', (req, res) => {
   res.render('main', {layout : 'index'})
 })
 
-router.get('/bins/:url/inspect', (req, res) => {
-  // if URL exists, render display page
-  // else, redirect to home
-  // implement via callbacks?
-  // Any way to mimic synchronicity?
-  // Pass data as an array of requests in reverse order: enforce in-memory
+router.get('/bins/:url/inspect', async (req, res) => {
+  const url = req.params.url;
+  const validURL = await model.queryBin(url);
 
-  // Idea: when redirected to home, raise an error so the user's aware?
+  if (validURL) {
+    // Render display page of this bin
+
+    // Get all requests from this bin in reverse order
+    // Pass data as an array of requests in reverse order: enforce in-memory
+
+    //res.render(requestsInReverseOrder, ¿payload?)
+  } else {
+    // Idea: when redirected to home, raise an error so the user's aware?
+    res.redirect('/');
+  }
 });
 
 router.all('/bins/:url', (req, res) => {

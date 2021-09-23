@@ -1,21 +1,17 @@
 const pg = require("pg");
 const uri = 'postgres://reader:12345@localhost:5432/request_bin'
 
-function queryBin(url, httpRes) {
+async function queryBin(path) {
   const client = new pg.Client(uri);
   client.connect();
 
-  client.query(`SELECT * FROM bin WHERE url='${url}'`).then((queryRes) => {
-    const valueExists = queryRes.rows.length > 0;
+  let valueExists;
 
-    if (valueExists) {
-      const binId = queryRes[0].id
-      // Create a raw request entry
-    } else {
-      console.log(httpRes)
-      // httpRes.render('empty', {layout : 'index', binURL: getBin(url)})
-    }
+  await client.query(`SELECT * FROM bin WHERE path='${path}'`).then((queryRes) => {
+    valueExists = queryRes.rows.length > 0;
   }).finally(() => client.end());
+
+  return valueExists
 };
 
 /*
