@@ -24,13 +24,33 @@ router.get('/bins/:path/inspect', async (req, res) => {
     // Pass data as an array of requests in reverse order: enforce in-memory
 
     //res.render(requestsInReverseOrder, ¿payload?)
+    res.send("Valid path!")
   } else {
     // Idea: when redirected to home, raise an error so the user's aware?
-    res.redirect('/');
+    res.send("Invalid path!")
+    // res.redirect('/');
   }
 });
 
-router.all('/bins/:path', (req, res) => {
+router.all('/bins/:path', async (req, res) => {
+  const path = req.params.path;
+  const validPath = await model.queryBin(path);
+
+  if (validPath) {
+    // console.log(req.rawHeaders)
+    // console.log(req.method)
+    // console.log(req.url)
+    console.log(JSON.stringify(req))
+    res.send("Valid path!")
+
+    // Convert request to JSONB and inserting into raw_request; return raw_request id
+    // Also parse request and insert into request
+    // Connect request to previous raw_request id
+
+  } else {
+    res.send("Invalid path!")
+    // res.redirect('/');
+  }
   // - If bin doesn't exist/url isn't in bin table: redirect to main
   // - If bin exists: save request and redirect to /bins/:url/inspect
   // Q: how to async process raw_request to request?
