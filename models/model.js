@@ -23,16 +23,14 @@ Tasks:
 - Query for the bin and pass callbacks if it exists and doesn't exist
 */
 
-function createBin(res) {
-  const url = generateRandomAlphanumericLength30()
+async function createBin(path) {
   const client = new pg.Client(uri);
 
   client.connect();
 
-  client.query(`INSERT INTO bin VALUES (DEFAULT, '${url}', CURRENT_DATE)`).then(() => {
+  await client.query(`INSERT INTO bin VALUES (DEFAULT, '${path}', CURRENT_DATE)`).then(() => {
     client.end();
-    res.redirect(`/bins/${url}`);
-  })
+  });
 }
 
 function generateRandomAlphanumericLength30() {
@@ -45,7 +43,7 @@ getBin = (path) => 'https://requestbin.net' + path
 
 queryBin('1ozm1furggsjfwrf41xk8xb8hjt3ll!')
 
-module.exports = { createBin, queryBin }
+module.exports = { createBin, queryBin, generateRandomAlphanumericLength30 }
 
 /*
 

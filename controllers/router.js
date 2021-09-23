@@ -1,11 +1,12 @@
 const router = require('express').Router()
+const model = require('../models/model')
 
-const model = require('../models/TODO')
-
-router.post("/bins", (req, res) => {
+router.post("/bins", async (req, res) => {
   // Creates a new random bin id in the database and redirect to new bin
-  model.createBin(res);
-})
+  const path = model.generateRandomAlphanumericLength30()
+  await model.createBin(path, res);
+  res.redirect(`/bins/${path}/inspect`)
+});
 
 router.get('/', (req, res) => {
   // Renders the index page
@@ -17,6 +18,7 @@ router.get('/bins/:url/inspect', (req, res) => {
   // else, redirect to home
   // implement via callbacks?
   // Any way to mimic synchronicity?
+  // Pass data as an array of requests in reverse order: enforce in-memory
 
   // Idea: when redirected to home, raise an error so the user's aware?
 });
@@ -24,6 +26,7 @@ router.get('/bins/:url/inspect', (req, res) => {
 router.all('/bins/:url', (req, res) => {
   // - If bin doesn't exist/url isn't in bin table: redirect to main
   // - If bin exists: save request and redirect to /bins/:url/inspect
+  // Q: how to async process raw_request to request?
   // implement by passing 2 callbacks to queryBin for success and failure?
 });
 
