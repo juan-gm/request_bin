@@ -13,11 +13,11 @@ router.get('/', (req, res) => {
   res.render('main', {layout : 'index'})
 })
 
-router.get('/bins/:url/inspect', async (req, res) => {
-  const url = req.params.url;
-  const validURL = await model.queryBin(url);
+router.get('/bins/:path/inspect', async (req, res) => {
+  const path = req.params.path;
+  const validPath = await model.queryBin(path);
 
-  if (validURL) {
+  if (validPath) {
     // Render display page of this bin
 
     // Get all requests from this bin in reverse order
@@ -30,7 +30,7 @@ router.get('/bins/:url/inspect', async (req, res) => {
   }
 });
 
-router.all('/bins/:url', (req, res) => {
+router.all('/bins/:path', (req, res) => {
   // - If bin doesn't exist/url isn't in bin table: redirect to main
   // - If bin exists: save request and redirect to /bins/:url/inspect
   // Q: how to async process raw_request to request?
