@@ -1,9 +1,14 @@
 <div>
   <script type="text/javascript">
-    function createBin() {
-      fetch('/bins', {
+    createBin = async () => {
+      const response = await fetch('/bins', {
         method: 'POST',
       })
+      if (response.ok) {
+        response.json().then(data => {
+          window.location.href = `${data.urlForward}`
+        })
+      }
     }
   </script>
 </div>
@@ -15,11 +20,9 @@
   }
 
   .instructions {
-    font-family: 'Gluten', 'cursive';
+    font-family: 'Ubuntu', sans-serif;
     font-size: large;
   }
-
-  .space { margin:0; padding:0; height:50px; }
 
   img {
     display: block;
