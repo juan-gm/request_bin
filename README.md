@@ -8,5 +8,6 @@ Authors:
 
 # Set-up Steps
 - Run `npm install`
-- Run `setup.sql` to set up databases
-- Adjust the psql url in `model.js`
+- Create a local postgresql database
+- Use `setup.sql` to set up the schema
+- Adjust the psql url in `model.js` to point to the database you just created
