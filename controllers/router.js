@@ -19,23 +19,23 @@ router.get('/bins/:path/inspect', async (req, res) => {
   const validPath = await model.queryBin(path);
 
   if (validPath) {
-    // Render display page of this bin
+    // TODO: render page and pass array of objects
 
-    // Get all requests from this bin in reverse order
-    // Pass data as an array of requests in reverse order: enforce in-memory
+    const requests = (await model.getBinRequests(path)).reverse();
 
     //res.render(requestsInReverseOrder, ¿payload?)
     res.send("Valid path!")
   } else {
     // Idea: when redirected to home, raise an error so the user's aware?
     res.send("Invalid path!")
-    // res.redirect('/');
+    res.redirect('/');
   }
 });
 
 router.all('/bins/:path', async (req, res) => {
   // Cause of error: passing query string
   // bins/:path?hello=goodbye
+
   const path = req.params.path;
   const validPath = await model.queryBin(path);
 
@@ -61,30 +61,4 @@ router.all('/bins/:path', async (req, res) => {
   }
 });
 
-module.exports = router
-
-/*
-  const inspection = req.query.inspect
-
-  if (inspection == null) {
-    // =============
-    // TODO
-    // =============
-
-    // This GET request should be collected because it doesn't inspect
-    // After collection, redirect to inpect page
-    // Assumes the user will want to inspect their most recent request to the bin
-
-    // res.render('newRequest', {layout : ''})
-    res.send(`This is ${req.query.test}`)
-  }
-
-  if (requestsExist(req.url)) {
-    // Load page which shows existing requests
-    res.render('existing', {layout : 'index', binURL: getBin(req.url)})
-  } else {
-    // Since they have no requests
-    // Load page to show user how to make requests
-    res.render('empty', {layout : 'index', binURL: getBin(req.url)})
-  }
-  */
+module.exports = router;

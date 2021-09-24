@@ -39,6 +39,23 @@ async function insertParsedRequest(requestData) {
   await client.query(`INSERT INTO parsed_request VALUES (DEFAULT, ${requestData.binId}, '${requestData.rawBody}', '${requestData.rawHeaders}', '${requestData.query}', '${requestData.path}', DEFAULT, '${requestData.method}')`).finally(() => client.end());
 }
 
+async function getBinRequests(path) {
+  // Return an array of all of the bin's requests
+
+  const client = new pg.Client(uri);
+  client.connect();
+
+  let requests;
+
+  await client.query(`SELECT * FROM parsed_request WHERE path='/bins/${path}'`).then((res) => {
+    requests = res.rows;
+  }).finally(() => {
+    client.end()
+  });
+
+  return requests;
+}
+
 async function createBin(path) {
   const client = new pg.Client(uri);
 
@@ -59,7 +76,7 @@ getBin = (path) => 'https://requestbin.net' + path
 
 queryBin('1ozm1furggsjfwrf41xk8xb8hjt3ll!')
 
-module.exports = { createBin, queryBin, queryBinId, generateRandomAlphanumericLength30, insertParsedRequest }
+module.exports = { createBin, queryBin, queryBinId, generateRandomAlphanumericLength30, insertParsedRequest, getBinRequests }
 
 /*
 
