@@ -1,7 +1,20 @@
-<p>
-{{binURL}}
-</p>
+<style>
+    .url {
+      font-size: x-large;
+      background-color: rgb(219, 219, 219);
+      border-style: ridge;
+      font-family: 'Gluten', cursive;
+      padding-top: 20px;
+    }
 
+    .space { margin:0; padding:0; height:50px; }
+</style>
+
+<div class="space"></div>
+<div class="container url">
+    <p class="col-md-12 text-center center-block">{{binURL}}</p>
+</div>
+<div class="space"></div>
 <p>
 This page should show all the requests. For that we should implement
 partials. Each partial will render one of the requests. The partials should be displayed
