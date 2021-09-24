@@ -5,3 +5,8 @@ Authors:
 * Callie
 * José
 * Juan
+
+# Set-up Steps
+- Run `npm install`
+- Run `setup.sql` to set up databases
+- Adjust the psql url in `model.js`
