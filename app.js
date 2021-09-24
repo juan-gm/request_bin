@@ -24,7 +24,7 @@ const todoRouter = require('./controllers/TODO')
 // Do we need cors?
 // app.use(cors())
 
-app.use(express.static('build'))
+app.use(express.static('public'))
 app.use(express.json())
 
 app.set('view engine', 'hbs')
