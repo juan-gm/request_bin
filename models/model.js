@@ -1,5 +1,7 @@
+require('dotenv').config()
+
 const pg = require("pg");
-const uri = 'postgres://juan:12345@localhost:5432/request_bin'
+const uri = process.env.DATABASE
 
 async function queryBin(path) {
   // Return true if the bin exists
