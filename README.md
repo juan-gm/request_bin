@@ -23,4 +23,5 @@ Authors:
 
   - `'postgres://yourpsqlusername:psqlpassword@localhost:5432/request_bin'`
 
-  The psql pasword it's usually 12345s
+  The psql pasword it's usually 12345
+  It is possible to change it by running the command `ALTER USER username WITH PASSWORD 'newpassword';`
