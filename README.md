@@ -19,7 +19,7 @@ Authors:
 
   - `psql -d request_bin < db/setup.sql`
 
-- Adjust the psql url in `model.js` to point to the database you just created. Edit the uri to be 
+- Create an `.env` file in the root directory and add `DATABASE = ` with the following link. Edit the uri to be 
 
   - `'postgres://yourpsqlusername:psqlpassword@localhost:5432/request_bin'`
 
