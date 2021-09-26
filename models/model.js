@@ -1,5 +1,5 @@
 const pg = require("pg");
-const uri = 'postgres://richard:12345@localhost:5432/testing'
+const uri = 'postgres://juan:12345@localhost:5432/request_bin'
 
 async function queryBin(path) {
   // Return true if the bin exists

@@ -6,10 +6,8 @@ router.post("/bins", async (req, res) => {
   // Creates a new random bin id in the database and redirect to new bin
   const path = model.generateRandomAlphanumericLength30()
   await model.createBin(path, res);
-  console.log("I HAVE BEEN FOUND BY MY PEOPLE");
   //res.redirect(`/bins/${path}/inspect`)
   res.status(200).json({ urlForward : `/bins/${path}/inspect`})
-  console.log("YOUR REDIRECT DID NOT STOP ME")
 });
 
 router.get('/', (req, res) => {
@@ -25,14 +23,11 @@ router.get('/bins/:path/inspect', async (req, res) => {
     // TODO: render page and pass array of objects
 
     const requests = (await model.getBinRequests(path)).reverse();
-    console.log("HELLO YOU HAVE FOUND THE REQUESTS")
 
     if (requests.length < 1) {
       res.render('empty', {layout : 'index', binURL: `requestbin.site/bins/${path}`}) 
-      console.log("I AM EMPTY")
     } else {
       res.render('existing', {layout : 'index', binURL: `requestbin.site/bins/${path}`, listOfRequests: requests})
-      console.log("I AM EXISTING")
     }
     
   } else {
